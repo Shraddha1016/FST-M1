@@ -1,0 +1,35 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import java.util.List;
+public class Activity9_2 {
+    public static void main(String[] args) {
+        WebDriver driver = new FirefoxDriver();
+        driver.get("https://training-support.net/selenium/selects");
+        WebElement chosen = driver.findElement(By.id("multi-value"));
+        Select ml = new Select(driver.findElement(By.id("multi-select")));
+        if(ml.isMultiple()) {
+            ml.selectByVisibleText("Javascript");
+            System.out.println(chosen.getText());
+            ml.selectByValue("node");
+            System.out.println(chosen.getText());
+            for(int i=4; i<=6; i++) {
+                ml.selectByIndex(i);
+            }
+            System.out.println(chosen.getText());
+            ml.deselectByValue("node");
+            System.out.println(chosen.getText());
+            ml.deselectByIndex(7);
+            System.out.println(chosen.getText());
+            List<WebElement> selectedOptions = ml.getAllSelectedOptions();
+            for(WebElement selectedOption : selectedOptions) {
+                System.out.println("Options are : " + selectedOption.getText());
+            }
+            ml.deselectAll();
+            System.out.println(chosen.getText());
+        }
+        driver.quit();
+    }
+}
